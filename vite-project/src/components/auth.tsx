@@ -18,8 +18,8 @@ export function AuthenticationForm(props: PaperProps) {
   const form = useForm({
     initialValues: {
       username: "",
-      name: "",
       password: "",
+      confirmPassword: "",
       terms: true,
     },
 
@@ -41,6 +41,17 @@ export function AuthenticationForm(props: PaperProps) {
   });
 
   const handleSubmit = form.onSubmit(() => {
+    const currentUsers =
+      JSON.parse(localStorage.getItem("users") as string) || [];
+    if (type === "register") {
+      currentUsers.push(form.values.username);
+      localStorage.setItem("users", JSON.stringify(currentUsers));
+    } else if (type === "login") {
+      if (!currentUsers.includes(form.values.username)) {
+        alert("Username not found");
+        return;
+      }
+    }
     window.location.replace("/confg");
   });
 
@@ -54,18 +65,6 @@ export function AuthenticationForm(props: PaperProps) {
 
       <form onSubmit={handleSubmit}>
         <Stack>
-          {type === "register" && (
-            <TextInput
-              label="Name"
-              placeholder="Your name"
-              value={form.values.name}
-              onChange={(event) =>
-                form.setFieldValue("name", event.currentTarget.value)
-              }
-              radius="md"
-            />
-          )}
-
           <TextInput
             required
             label="Username"
@@ -94,6 +93,20 @@ export function AuthenticationForm(props: PaperProps) {
           />
 
           {type === "register" && (
+            <PasswordInput
+              required
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              value={form.values.confirmPassword}
+              onChange={(event) =>
+                form.setFieldValue("confirmPassword", event.currentTarget.value)
+              }
+              error={form.errors.confirmPassword && "Passwords do not match"}
+              radius="md"
+            />
+          )}
+
+          {type === "register" && (
             <Checkbox
               label="I accept terms and conditions"
               checked={form.values.terms}
@@ -111,7 +124,11 @@ export function AuthenticationForm(props: PaperProps) {
             c="dimmed"
             onClick={() => toggle()}
             size="xs"
-          ></Anchor>
+          >
+            {type === "login"
+              ? "Don't have an account? Register"
+              : "Already have an account? Login"}
+          </Anchor>
           <Button type="submit" radius="xl">
             {upperFirst(type)}
           </Button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@mantine/core";
 import { JsonEditor as Editor } from "jsoneditor-react";
 import "jsoneditor-react/es/editor.min.css";
-import "../assets/configurationPage.css"; // Import the CSS file
+import "../assets/configurationPage.css"; 
 import { NavbarMinimal } from "./navbar";
 
 export function ConfigurationPage() {
