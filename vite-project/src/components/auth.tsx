@@ -27,12 +27,12 @@ export function AuthenticationForm(props: PaperProps) {
       username: (val) =>
         val.length <= 2 ? "username needs to be atleast 2 characters" : null,
       password: (val) => {
-        if (val.length < 6) {
-          return "Password should include at least 6 characters";
-        } else if (!/[a-z]/.test(val)) {
+        if (!/[a-z]/.test(val)) {
           return "Password should include at least one lowercase letter";
         } else if (!/[A-Z]/.test(val)) {
           return "Password should include at least one uppercase letter";
+        } else if (val.length < 6) {
+          return "Password should include at least 6 characters";
         } else {
           return null;
         }
@@ -85,11 +85,7 @@ export function AuthenticationForm(props: PaperProps) {
             onChange={(event) =>
               form.setFieldValue("password", event.currentTarget.value)
             }
-            error={
-              form.errors.password &&
-              "Password should include at least 6 characters"
-            }
-            radius="md"
+            error={form.errors.password}
           />
 
           {type === "register" && (
