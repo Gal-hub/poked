@@ -58,7 +58,7 @@ export function AuthenticationForm(props: PaperProps) {
   return (
     <Paper radius="md" p="xl" withBorder {...props}>
       <Text size="lg" fw={500}>
-        Welcome to Hatal, {type} with username
+        Welcome to poked, {type} with username
       </Text>
 
       <Group grow mb="md" mt="md"></Group>
@@ -68,7 +68,7 @@ export function AuthenticationForm(props: PaperProps) {
           <TextInput
             required
             label="Username"
-            placeholder="gals"
+            placeholder="שם משתמש"
             value={form.values.username}
             onChange={(event) =>
               form.setFieldValue("username", event.currentTarget.value)
@@ -80,7 +80,7 @@ export function AuthenticationForm(props: PaperProps) {
           <PasswordInput
             required
             label="Password"
-            placeholder="Your password"
+            placeholder="הסיסמא שלך"
             value={form.values.password}
             onChange={(event) =>
               form.setFieldValue("password", event.currentTarget.value)
@@ -92,7 +92,7 @@ export function AuthenticationForm(props: PaperProps) {
             <PasswordInput
               required
               label="Confirm Password"
-              placeholder="Confirm your password"
+              placeholder="אמת את הסיסמא שלך"
               value={form.values.confirmPassword}
               onChange={(event) =>
                 form.setFieldValue("confirmPassword", event.currentTarget.value)
@@ -122,8 +122,8 @@ export function AuthenticationForm(props: PaperProps) {
             size="xs"
           >
             {type === "login"
-              ? "Don't have an account? Register"
-              : "Already have an account? Login"}
+              ? "אין לך משתמש, הירשם"
+              : "כבר יש לך משתמש, התחבר"}
           </Anchor>
           <Button type="submit" radius="xl">
             {upperFirst(type)}
